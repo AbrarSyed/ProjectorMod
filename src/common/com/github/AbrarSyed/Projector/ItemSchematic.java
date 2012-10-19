@@ -42,7 +42,6 @@ public class ItemSchematic extends Item
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
     {
-    	// TODO; FIX!
     	FMLClientHandler.instance().displayGuiScreen(player, new GuiSchematicChooser(stack, null, ProjectorAPI.getSchematicFileSystem()));
         return stack;
     }
