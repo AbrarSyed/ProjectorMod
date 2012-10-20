@@ -33,7 +33,7 @@ public class FileSystem implements Serializable
 	public void load(File file, FileFilter filter)
 	{
 		if (!file.isDirectory() || !file.exists())
-			throw new IllegalArgumentException("File must exist amd be a directory.");
+			throw new IllegalArgumentException("File must exist and be a directory.");
 		
 		File[] files = Schematic.SCHEM_DIR.listFiles(new FileFilterSchematic());
 		

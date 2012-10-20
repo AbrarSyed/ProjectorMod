@@ -13,6 +13,7 @@ public class BlockProjector extends BlockContainer
 	{
 		super(id, 2, Material.wood);
 		this.setHardness(1.5F);
+		this.setCreativeTab(CreativeTabs.tabBlock);
 	}
 	
 	@Override

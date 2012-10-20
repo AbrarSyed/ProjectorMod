@@ -47,7 +47,6 @@ public class ProjectorAPI
 		instance.config = new Configuration(new File(Minecraft.getMinecraftDir(), "/config/ProjectorAPI.cfg"));
 		instance.allowedID = new boolean[4096];
 		instance.schematicsDir = new FileSystem();
-		instance.schematicsDir.load(Schematic.SCHEM_DIR, new FileFilterSchematic());
 		
 		if (!projectUnob)
 		{
@@ -70,6 +69,8 @@ public class ProjectorAPI
 		// make sure that Schematic folder exists
 		if (!Schematic.SCHEM_DIR.exists() || !Schematic.SCHEM_DIR.isDirectory())
 			Schematic.SCHEM_DIR.mkdir();
+		
+		instance.schematicsDir.load(Schematic.SCHEM_DIR, new FileFilterSchematic());
 		
 		instance.logger.fine("Projector API initializing complete.");
 	}

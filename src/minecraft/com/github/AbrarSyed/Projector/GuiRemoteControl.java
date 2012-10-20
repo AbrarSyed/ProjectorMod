@@ -2,6 +2,8 @@ package com.github.AbrarSyed.Projector;
 
 import java.awt.Color;
 
+import cpw.mods.fml.common.network.PacketDispatcher;
+
 import net.minecraft.src.GuiButton;
 import net.minecraft.src.GuiScreen;
 import net.minecraft.src.GuiSmallButton;
@@ -228,14 +230,24 @@ public class GuiRemoteControl extends GuiScreen
 				{
 				case 1:
 					if (par1GuiButton.displayString.equals("project"))
+					{
 						entity.project();
+						PacketDispatcher.sendPacketToServer(new PacketProjectorControl(1, entity.xCoord, entity.yCoord, entity.zCoord));
+					}
 					else if (par1GuiButton.displayString.equals("pause") && !entity.canChangeState())
+					{
 						entity.pauseTicking();
+						PacketDispatcher.sendPacketToServer(new PacketProjectorControl(2, entity.xCoord, entity.yCoord, entity.zCoord));
+					}
 					else if (par1GuiButton.displayString.equals("stop"))
+					{
 						entity.endProjectionGradually();
+						PacketDispatcher.sendPacketToServer(new PacketProjectorControl(3, entity.xCoord, entity.yCoord, entity.zCoord));
+					}
 					break;
 				case 2: 
 					entity.refreshProjection();
+					PacketDispatcher.sendPacketToServer(new PacketProjectorControl(4, entity.xCoord, entity.yCoord, entity.zCoord));
 					break;
 				case 3: 
 					offsetX.setNumber(offsetX.getNumber()+1);
@@ -262,6 +274,24 @@ public class GuiRemoteControl extends GuiScreen
 				case 10:
 					entity.unload();
 				}
+				
+		        if (offsetX.getNumber() != entity.getOffsets()[0])
+		        {
+		        	entity.setOffsets(new int[] {offsetX.getNumber(), entity.getOffsets()[1], entity.getOffsets()[2]});
+		        	PacketDispatcher.sendPacketToServer(new PacketProjectorControl(entity.xCoord, entity.yCoord, entity.zCoord,offsetX.getNumber(), entity.getOffsets()[1], entity.getOffsets()[2]));
+		        }
+		        
+		        if (offsetY.getNumber() != entity.getOffsets()[1])
+		        {
+		        	entity.setOffsets(new int[] {entity.getOffsets()[0], offsetY.getNumber(), entity.getOffsets()[2]});
+		        	PacketDispatcher.sendPacketToServer(new PacketProjectorControl(entity.xCoord, entity.yCoord, entity.zCoord, entity.getOffsets()[0], offsetY.getNumber(), entity.getOffsets()[2]));
+		        }
+		        
+		        if (offsetZ.getNumber() != entity.getOffsets()[2])
+		        {
+		        	entity.setOffsets(new int[] {entity.getOffsets()[0], entity.getOffsets()[1], offsetZ.getNumber()});
+		        	PacketDispatcher.sendPacketToServer(new PacketProjectorControl(entity.xCoord, entity.yCoord, entity.zCoord, entity.getOffsets()[0], entity.getOffsets()[1], offsetZ.getNumber()));
+		        }
 			}
 		}
 	}

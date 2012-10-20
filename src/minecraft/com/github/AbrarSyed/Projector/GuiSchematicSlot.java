@@ -74,7 +74,7 @@ class GuiSchematicSlot extends GuiSlot
     	if (par1 == 0)
     		GL11.glBindTexture(GL11.GL_TEXTURE_2D, ModLoader.getMinecraftInstance().renderEngine.getTexture("/gui/unknown_pack.png"));
     	else
-        	ModLoader.getMinecraftInstance().texturePackList.getSelectedTexturePack().func_77535_b((ModLoader.getMinecraftInstance().renderEngine));
+        	ModLoader.getMinecraftInstance().texturePackList.getSelectedTexturePack().bindThumbnailTexture((ModLoader.getMinecraftInstance().renderEngine));
     	
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         par5Tessellator.startDrawingQuads();

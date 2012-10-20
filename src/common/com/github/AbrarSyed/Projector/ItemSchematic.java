@@ -20,8 +20,7 @@ public class ItemSchematic extends Item
 		this.setNoRepair();
 		this.setHasSubtypes(false);
 		this.setTextureFile("/projector/images.png");
-		this.setTabToDisplayOn(CreativeTabs.tabMisc);
-		this.setItemName("schematic");
+		this.setCreativeTab(CreativeTabs.tabMisc);
 	}
 	
 	@Override

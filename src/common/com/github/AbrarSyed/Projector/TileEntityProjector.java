@@ -18,6 +18,7 @@ public class TileEntityProjector extends TileEntity implements IInventory
 	{
 		super();
 		this.logString = "idling";
+		offsets = new int[] { 0, 2, 0};
 	}
 	
 	// ------------------------------------------------------------------------------------------------------------------------------
@@ -35,7 +36,11 @@ public class TileEntityProjector extends TileEntity implements IInventory
     	
     	boolean hasItem = nbt.getBoolean("hasItem");
     	projecting = nbt.getBoolean("projecting");
-    	offsets = nbt.getIntArray("offsets");
+    	offsets = new int[] {
+    			nbt.getInteger("offsetX"),
+    			nbt.getInteger("offsetY"),
+    			nbt.getInteger("offsetZ")
+    	};
     	currentY = nbt.getInteger("currentY");
     	
     	if (hasItem)
@@ -53,7 +58,11 @@ public class TileEntityProjector extends TileEntity implements IInventory
     	super.writeToNBT(nbt);
     	
     	nbt.setBoolean("projecting", projecting);
-    	nbt.setIntArray("offsets", offsets);
+    	
+    	nbt.setInteger("offsetX", offsets[0]);
+    	nbt.setInteger("offsetY", offsets[1]);
+    	nbt.setInteger("offsetZ", offsets[2]);
+    	
     	nbt.setInteger("currentY", currentY);
     	
     	if (loadedItem == null)
