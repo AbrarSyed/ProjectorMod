@@ -1,6 +1,7 @@
 package com.github.AbrarSyed.Projector;
 
 import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.asm.SideOnly;
 import net.minecraft.client.Minecraft;
@@ -17,6 +18,8 @@ public class ProxyClient extends ProxyCommon
 		// texture registers
 		MinecraftForgeClient.preloadTexture("/projections/terrain.png");
 		MinecraftForgeClient.preloadTexture("/projector/images.png");
+		ProjectorMod.renderID = RenderingRegistry.getNextAvailableRenderId();
+		RenderingRegistry.registerBlockHandler(new ProjectionRenderrer());
 	}
 	
 	@Override

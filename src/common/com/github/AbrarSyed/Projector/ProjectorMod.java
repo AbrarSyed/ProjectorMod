@@ -46,6 +46,13 @@ public class ProjectorMod
 			constructor.setAccessible(true);
 			proColor = (MapColor) constructor.newInstance(new Object[] {14, 0x30a1cf});
 			proMaterial = (new MaterialProjection(proColor));
+			
+			/*
+			 * Colors stuff for openGL
+			 * GL11.glEnable(GL11.GL_BLEND);
+			 * GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			 * GL11.glColor4f(0.0F,0.0F,20.0F,0.3F);
+			 */
 		}
 		catch(Exception e)
 		{
@@ -56,13 +63,13 @@ public class ProjectorMod
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
 		int[] IDs = {
-				config.getOrCreateBlockIdProperty("BlockProjector", 2000).getInt(),
-				config.getOrCreateBlockIdProperty("BlockBeacon", 2001).getInt(),
-				config.getOrCreateBlockIdProperty("BlockProjection", 2002).getInt(),
-				config.getOrCreateIntProperty("ItemSchematic", config.CATEGORY_ITEM, 4096).getInt() - 256,
-				config.getOrCreateIntProperty("ItemRemote", config.CATEGORY_ITEM, 4097).getInt() - 256,
+				config.getBlock("BlockProjector", 2000).getInt(),
+				config.getBlock("BlockBeacon", 2001).getInt(),
+				config.getBlock("BlockProjection", 2002).getInt(),
+				config.getItem("ItemSchematic", config.CATEGORY_ITEM, 4096).getInt() - 256,
+				config.getItem("ItemRemote", config.CATEGORY_ITEM, 4097).getInt() - 256,
 		};
-		ProjectorAPI.projectUnob = config.getOrCreateBooleanProperty("projectUnobtainables", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
+		ProjectorAPI.projectUnob = config.get("projectUnobtainables", Configuration.CATEGORY_GENERAL, true).getBoolean(true);
 		config.save();
 		
 		IDS = IDs;
@@ -110,6 +117,7 @@ public class ProjectorMod
 	// necessary Block stuff
 	public static MapColor proColor;
 	public static MaterialProjection proMaterial;
+	public static int renderID;
 	
 	// actual Blocks.
 	public static BlockProjector projector;

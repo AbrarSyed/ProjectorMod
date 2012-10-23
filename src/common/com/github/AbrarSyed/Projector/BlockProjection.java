@@ -233,9 +233,7 @@ public class BlockProjection extends BlockContainer
 	@Override
 	public int getRenderType()
 	{
-		return 0;
-		// TODO get renderring done.
-		//return ProjectorMod.renderID;
+		return ProjectorMod.renderID;
 	}
 	
 	@Override
