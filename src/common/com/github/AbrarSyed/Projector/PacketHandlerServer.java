@@ -50,6 +50,9 @@ public class PacketHandlerServer implements IPacketHandler {
 			case 3:
 				PacketProjectorControl.readServer(stream, world, player);
 				break;
+			case 4:
+				PacketProjectionTE.readServer(stream, world, player);
+				break;
 			}
 		}
 		catch(Exception e)

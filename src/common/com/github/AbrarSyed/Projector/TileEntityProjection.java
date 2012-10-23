@@ -69,6 +69,12 @@ public class TileEntityProjection extends TileEntity
         return false;
     }
     
+    @Override
+    public Packet getDescriptionPacket()
+    {
+        return new PacketProjectionTE(this);
+    }
+    
     /**
 	 * @return the heldID
 	 */
@@ -76,9 +82,24 @@ public class TileEntityProjection extends TileEntity
 	{
 		return heldID;
 	}
+	
+    public int getProjectorX()
+    {
+		return projectorX;
+	}
+
+	public int getProjectorY()
+	{
+		return projectorY;
+	}
+
+	public int getProjectorZ()
+	{
+		return projectorZ;
+	}
 
 	private int heldID;
-    private int projectorX;
+	private int projectorX;
     private int projectorY;
     private int projectorZ;
 }
