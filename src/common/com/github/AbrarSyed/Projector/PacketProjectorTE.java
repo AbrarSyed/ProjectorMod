@@ -17,7 +17,6 @@ import net.minecraft.src.WorldServer;
 
 public class PacketProjectorTE extends Packet250CustomPayload
 {
-	// TODO: not read yet
 	public static final int packetID  = 5;
 	
 	public PacketProjectorTE(TileEntityProjector entity)
@@ -36,8 +35,15 @@ public class PacketProjectorTE extends Packet250CustomPayload
 			stream.writeInt(entity.yCoord);
 			stream.writeInt(entity.zCoord);
 			
-			// TE projector coords.
-			// TODO fix.
+			// stuff
+			stream.writeBoolean(entity.isProjecting());
+			stream.writeInt(entity.getCurrentY());
+			
+			// offsets
+			int[] offsets = entity.getOffsets();
+			stream.writeInt(offsets[0]);
+			stream.writeInt(offsets[1]);
+			stream.writeInt(offsets[2]);
 			
 			data = streambyte.toByteArray();
 			length = data.length;
@@ -56,7 +62,6 @@ public class PacketProjectorTE extends Packet250CustomPayload
 	{
 		try
 		{
-			// TODO fix.
 			int x = stream.readInt();
 			int y = stream.readInt();
 			int z = stream.readInt();
@@ -65,14 +70,10 @@ public class PacketProjectorTE extends Packet250CustomPayload
 			if (entity == null)
 				return;
 			
-			TileEntityProjection projection = (TileEntityProjection) entity;
+			TileEntityProjector projector = (TileEntityProjector) entity;
 			
-			int pX = stream.readInt();
-			int pY = stream.readInt();
-			int pZ = stream.readInt();
-			int heldid = stream.readInt();
-			
-			projection.setData(heldid, pX, pY, pZ);
+			projector.readPacket(stream.readBoolean(), stream.readInt());
+			projector.setOffsets(new int[] {stream.readInt(), stream.readInt(), stream.readInt()});
 		}
 		catch (IOException e)
 		{
@@ -84,7 +85,6 @@ public class PacketProjectorTE extends Packet250CustomPayload
 	{
 		try
 		{
-			// TODO fix.
 			int x = stream.readInt();
 			int y = stream.readInt();
 			int z = stream.readInt();
@@ -93,16 +93,10 @@ public class PacketProjectorTE extends Packet250CustomPayload
 			if (entity == null)
 				return;
 			
-			TileEntityProjection projection = (TileEntityProjection) entity;
+			TileEntityProjector projector = (TileEntityProjector) entity;
 			
-			int pX = stream.readInt();
-			int pY = stream.readInt();
-			int pZ = stream.readInt();
-			int heldid = stream.readInt();
-			
-			projection.setData(heldid, pX, pY, pZ);
-			
-			world.markBlockNeedsUpdate(x, y, z);
+			projector.readPacket(stream.readBoolean(), stream.readInt());
+			projector.setOffsets(new int[] {stream.readInt(), stream.readInt(), stream.readInt()});
 		}
 		catch (IOException e)
 		{

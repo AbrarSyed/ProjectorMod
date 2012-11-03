@@ -10,7 +10,6 @@ public class BlockProjection extends BlockContainer
 	{
 		super(ID, ProjectorMod.proMaterial);
 		this.blockIndexInTexture = 0;
-		this.setLightValue(.5F);
 		this.setLightOpacity(0);
 		this.setBlockUnbreakable();
 		this.setResistance(2000.0F);

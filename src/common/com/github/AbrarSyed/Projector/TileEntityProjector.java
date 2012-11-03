@@ -27,6 +27,12 @@ public class TileEntityProjector extends TileEntity implements IInventory
 	// /////////////////////////////////////////////
 	// ------------------------------------------------------------------------------------------------------------------------------
 	
+	@Override
+	public Packet getDescriptionPacket()
+	{
+		return new PacketProjectorTE(this);
+	}
+	
     /**
      * Reads a tile entity from NBT.
      */
@@ -74,6 +80,12 @@ public class TileEntityProjector extends TileEntity implements IInventory
     		loadedItem.writeToNBT(tag);
     		nbt.setCompoundTag("Item", tag);
     	}
+    }
+    
+    protected void readPacket(boolean projecting, int offsetY)
+    {
+    	this.projecting = projecting;
+    	this.currentY = offsetY;
     }
 	
 	/**
@@ -415,6 +427,11 @@ public class TileEntityProjector extends TileEntity implements IInventory
 	public boolean hasLoaded()
 	{
 		return loadedItem != null;
+	}
+	
+	public int getCurrentY()
+	{
+		return currentY;
 	}
 	
 	// ------------------------------------------------------------------------------------------------------------------------------

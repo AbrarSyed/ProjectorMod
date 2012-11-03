@@ -17,7 +17,6 @@ import net.minecraft.src.WorldServer;
 
 public class PacketProjectorControl extends Packet250CustomPayload
 {
-	// TODO: not read yet
 	public static final int packetID  = 3;
 	
 	/**
